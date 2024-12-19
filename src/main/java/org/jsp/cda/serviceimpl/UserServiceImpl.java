@@ -89,5 +89,13 @@ public class UserServiceImpl implements UserService {
 		return ResponseEntity.status(HttpStatus.OK).body(ResponseStructure.builder().httpstatus(HttpStatus.OK.value()).message("OTP verified successfully").body(user).build());
 	}
 
+	@Override
+	public ResponseEntity<?> findUserByEmail(String email) {
+	Optional<User> optional=dao.findUserByEmail(email);
+	if(optional.isEmpty())
+		throw  new RuntimeException(" Invalid email unable to find the email in database...");
+		return ResponseEntity.status(HttpStatus.OK).body(ResponseStructure.builder().httpstatus(HttpStatus.OK.value()).message("Email Found Successfully").body(optional.get()).build());
+	}
+
 
 }
